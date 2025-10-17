@@ -56,41 +56,91 @@ It allows users to extract, organize, and manage web data effortlessly for lead 
 
 ## How to Use in n8n
 
-Follow these steps to create and run workflows in FETSCR:
+## Requirements
+Before starting, ensure you have the following:
 
-1. **Access Workbench**  
-   - Log in at [FETSCR](https://www.fetscr.in/)  
-   - Navigate to **Workbench** → **Create New Workflow**
+- **n8n Cloud account**  
+  - To run and automate workflows in the cloud without self-hosting  
+  - Sign up at [n8n.io](https://n8n.io/)  
 
-2. **Choose a Template or Start from Scratch**  
-   - Template: Pre-built workflows (LinkedIn, Zomato, Indeed, etc.)  
-   - From Scratch: Drag and drop nodes to define your workflow
+- **Google Cloud Console project** with:  
+  - **Programmable Search Engine** enabled (for web searches)  
+  - **API Key generated** (for authentication)  
 
-3. **Add Trigger Node**  
-   - Example: Cron Node to schedule automation (daily/hourly)
+- **Google Sheet** for storing results  
+  - Columns: `Name`, `Company`, `Profile URL`  
 
-4. **Add Scraper Node**  
-   - Configure target website and select fields to extract  
-   - Test node to ensure data is pulled correctly
+---
 
-5. **Add Data Processing Nodes (Optional)**  
-   - Function Node: Transform or clean data  
-   - Set Node: Organize fields for output
+## Detailed Setup Instructions
 
-6. **Add Output Node**  
-   - Google Sheets Node: Export data to a sheet  
-   - CSV Node: Save data as CSV  
-   - Webhook/Email Node: Send data to an app or inbox
+### 1️⃣ Sign Up for n8n Cloud
+1. Visit [n8n.io](https://n8n.io/)  
+2. Create a **Cloud account**  
+3. Log in and access your **Dashboard**  
+4. Familiarize yourself with **Workbench**  
 
-7. **Connect & Activate Workflow**  
-   - Connect nodes in order: Trigger → Scraper → Processing → Output  
-   - Save and **Activate** workflow
+---
 
-8. **Monitor Workflows**  
-   - Check logs, view errors, edit or delete workflows from the dashboard
+### 2️⃣ Configure Google Cloud Console
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)  
+2. Create a **new project**  
+3. Navigate to **APIs & Services → Library**  
+4. Search for **Custom Search API** and enable it  
+5. Go to **APIs & Services → Credentials**  
+6. Click **Create Credentials → API Key**  
+7. Copy this **API Key** for n8n
 
-**Example Use Case**: Scraping LinkedIn Jobs  
-- Cron node runs daily → Scraper node pulls Job Title, Company, Location, Post Date → Google Sheets node exports data → Workflow updates automatically every day
+---
+
+### 3️⃣ Set Up Programmable Search Engine
+1. Visit [Programmable Search Engine](https://cse.google.com/cse/all)  
+2. Click **Add → New Search Engine**  
+3. Leave sites blank or specify domains  
+4. Select **“Search the entire web”**  
+5. Click **Create**  
+6. Go to **Control Panel → Details**  
+7. Copy the **CX ID** for workflow configuration
+
+---
+
+### 4️⃣ Prepare Google Sheet
+1. Open **Google Sheets**  
+2. Create a new sheet with columns:  
+   - `Name`  
+   - `Company`  
+   - `Profile URL`  
+3. Connect to n8n via **OAuth2** credentials  
+4. Test access to ensure n8n can write to the sheet
+
+---
+
+### 5️⃣ Import Workflow into n8n
+1. In n8n **Workbench**, click **Import**  
+2. Upload `Linkedin.json` workflow file  
+3. Open the workflow editor  
+4. Configure nodes:  
+   - Google Custom Search Node → Add **API Key** and **CX ID**  
+   - Google Sheets Node → Select the target sheet  
+5. Validate that credentials are connected correctly
+
+---
+
+### 6️⃣ Run Workflow
+1. Set the **search query**:  
+   - Example: `site:linkedin.com/in "UI/UX Designer" Bangalore`  
+2. Execute workflow manually or schedule automation  
+3. Monitor output in the Google Sheet  
+4. Verify scraped data is stored correctly
+
+---
+
+### Tips & Best Practices
+- Test **API Key and CX ID** with a small query first  
+- Use **specific search queries** to reduce irrelevant results  
+- Schedule workflows for daily or weekly updates  
+- Ensure Google Sheet permissions allow writing  
+- Monitor execution logs in n8n to debug issues
 
 ---
 
@@ -102,7 +152,7 @@ Follow these steps to create and run workflows in FETSCR:
 
 ## Contribution
 - Feedback & suggestions via **Contact Form**  
-- Future contributions: workflow templates and enhancements
+- Future contributions: workflow templates, bug fixes, and feature enhancements
 
 ---
 
